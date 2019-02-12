@@ -26,7 +26,6 @@ SECRET_KEY = '2j0s7s5d4&d&n%xlz)u2r8k1)g6n(s!9r((=#mr6vfe9p%9^3t'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost',
     'superlists-staging.sytes.net'
 ]
 
