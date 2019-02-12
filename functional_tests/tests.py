@@ -1,11 +1,11 @@
 import os
-import sys
 import time
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
+from webdriver_manager.chrome import ChromeDriverManager
 
 MAX_WAIT = 3
 
@@ -13,7 +13,7 @@ MAX_WAIT = 3
 class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
-        self.browser = webdriver.Chrome('/Users/dexter/Library/chromedriver')
+        self.browser = webdriver.Chrome(ChromeDriverManager().install())
         staging_server = os.environ.get('STAGING_SERVER')
         if staging_server:
             self.live_server_url = 'http://' + staging_server
@@ -86,7 +86,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         ## We use a new browser session to make user that no information of Eidth's
         ## is coming through from cookies etc
         self.browser.quit()
-        self.browser = webdriver.Chrome('/Users/dexter/Library/chromedriver')
+        self.browser = webdriver.Chrome(ChromeDriverManager().install())
 
         # Francis visits the home page. There is no sign of Edith's list
         self.browser.get(self.live_server_url)
