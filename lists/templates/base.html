@@ -21,7 +21,9 @@
           <li><a href="#">Log out</a></li>
         </ul>
       {% else %}
-        <form class="navbar-form navbar-right" method="POST" action="{% url 'send_login_email' %}">
+        <form class="navbar-form navbar-right"
+              method="POST"
+              action="{% url 'send_login_email' %}">
           <span>Enter email to log in:</span>
           <input class="form-control" name="email" type="text"/>
           {% csrf_token %}
@@ -36,8 +38,9 @@
         {% for message in messages %}
           {% if message.level_tag == 'success' %}
             <div class="alert alert-success">{{ message }}</div>
-          {% endif %}
+          {% else %}
             <div class="alert alert-warning">{{ message }}</div>
+          {% endif %}
         {% endfor %}
       </div>
     </div>

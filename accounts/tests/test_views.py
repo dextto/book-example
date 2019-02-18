@@ -25,7 +25,7 @@ class SendLoginEmailViewTest(TestCase):
         self.assertEqual(from_email, 'noreply@superlists')
         self.assertEqual(to_list, ['edith@example.com'])
 
-    def test_success_message(self):
+    def test_adds_success_message(self):
         response = self.client.post('/accounts/send_login_email', data={
             'email': 'edith@example.com'
         }, follow=True)
@@ -70,7 +70,7 @@ class LoginViewTest(TestCase):
             call('abcd123')
         )
 
-    def test_call_auth_login_with_user_if_there_is_one(self, mock_auth):
+    def test_calls_auth_login_with_user_if_there_is_one(self, mock_auth):
         response = self.client.get('/accounts/login?token=abcd123')
         self.assertEqual(
             mock_auth.login.call_args,
