@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from selenium.common.exceptions import NoSuchElementException
 
 from .base import FunctionalTest
 from .server_tools import create_session_on_server
@@ -50,11 +51,11 @@ class MyListTest(FunctionalTest):
 
         # Under "my lists", her new list appears
         self.browser.find_element_by_link_text('My lists').click()
-        self.browser.find_element_by_link_text('Cilck cows').click()
+        self.browser.find_element_by_link_text('Click cows').click()
         self.wait_for(lambda: self.assertEqual(self.browser.current_url, second_list_url))
 
         # She logs out. The "My lists" option disappears
         self.browser.find_element_by_link_text('Log out').click()
-        self.wait_for(lambda: self.assertEqual(
-            self.browser.find_element_by_link_text('My lists'), []
-        ))
+
+        with self.assertRaises(NoSuchElementException):
+            self.wait_for(lambda: self.browser.find_element_by_link_text('My lists'))
