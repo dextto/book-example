@@ -28,7 +28,8 @@ def new_list2(request):
     form = NewListForm(data=request.POST)
     if form.is_valid():
         list_ = form.save(owner=request.user)
-        list_.owner = request.user
+        if request.user.is_authenticated:
+            list_.owner = request.user
         list_.save()
         # return redirect(list_)
         return redirect(str(list_.get_absolute_url()))
