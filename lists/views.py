@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
 
-from lists.forms import ExistingListItemForm, ItemForm
+from lists.forms import ExistingListItemForm, ItemForm, NewListForm
 from lists.models import List
 
 User = get_user_model()
@@ -15,12 +15,24 @@ def new_list(request):
     form = ItemForm(data=request.POST)
     if form.is_valid():
         list_ = List()
-        list_.owner = request.user
+        if request.user.is_authenticated:
+            list_.owner = request.user
         list_.save()
         form.save(for_list=list_)
         return redirect(str(list_.get_absolute_url()))
     else:
         return render(request, 'home.html', {"form": form})
+
+
+def new_list2(request):
+    form = NewListForm(data=request.POST)
+    if form.is_valid():
+        list_ = form.save(owner=request.user)
+        list_.owner = request.user
+        list_.save()
+        # return redirect(list_)
+        return redirect(str(list_.get_absolute_url()))
+    return render(request, 'home.html', {'form': form})
 
 
 def view_list(request, list_id):
