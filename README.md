@@ -2,7 +2,7 @@
 Sample source of site for learning Django unit test
 
 Test-Driven Development with Python, 2nd Edition 의 예제 코드를 따라 한 것입니다.  
-책의 소스가 https://github.com/hjwp/book-example의 소스와는 다른 부분이 있습니다.
+책의 소스가 [https://github.com/hjwp/book-example](https://github.com/hjwp/book-example)의 소스와는 다른 부분이 있습니다.
 저자가 3판을 준비중인 것으로 보입니다.  
  
 
